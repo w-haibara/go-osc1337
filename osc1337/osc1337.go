@@ -8,23 +8,23 @@ import (
 
 type Encoder struct {
 	W                   io.Writer
-	Size                int
-	Inline              bool
 	Name                []byte
+	Size                int
 	Width               string
 	Height              string
 	PreserveAspectRatio bool
+	Inline              bool
 	Align               string
 	Type                string
 }
 
 func NewEncoder() Encoder {
 	return Encoder{
-		Inline:              false,
 		Width:               "auto",
 		Height:              "auto",
 		PreserveAspectRatio: true,
 		Align:               "left",
+		Inline:              false,
 	}
 }
 
@@ -44,8 +44,8 @@ func (e Encoder) Encode(img []byte) {
 	}
 
 	fmt.Fprintf(e.W,
-		"\033]1337;File=name=%s;inline=%d;width=%s;height=%s;preserveAspectRatio=%d;align=%s;type=%s:%s\a\n",
+		"\x1b]1337;File=name=%s;width=%s;height=%s;preserveAspectRatio=%d;inline=%d:align=%s;type=%s;:%s",
 		base64.StdEncoding.EncodeToString(e.Name),
-		inline, e.Width, e.Height, preserveAspectRatio, e.Align, e.Type,
+		e.Width, e.Height, preserveAspectRatio, inline, e.Align, e.Type,
 		base64.StdEncoding.EncodeToString(img))
 }
