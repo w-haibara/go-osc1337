@@ -44,7 +44,7 @@ func (e Encoder) Encode(img []byte) {
 	}
 
 	fmt.Fprintf(e.W,
-		"\x1b]1337;File=name=%s;width=%s;height=%s;preserveAspectRatio=%d;inline=%d:align=%s;type=%s;:%s",
+		"\x1b]1337;File=name=%s;width=%s;height=%s;preserveAspectRatio=%d;inline=%d;align=%s;type=%s:%s\a\n",
 		base64.StdEncoding.EncodeToString(e.Name),
 		e.Width, e.Height, preserveAspectRatio, inline, e.Align, e.Type,
 		base64.StdEncoding.EncodeToString(img))
