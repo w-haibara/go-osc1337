@@ -33,6 +33,13 @@ func (e Encoder) Encode(img []byte) {
 		return
 	}
 
+	fmt.Fprintf(e.W, "\x1b]1337;File=name=%s",
+		base64.StdEncoding.EncodeToString(e.Name))
+
+	if e.Size != 0 {
+		fmt.Fprintf(e.W, ";size=%d", e.Size)
+	}
+
 	inline := 0
 	if e.Inline {
 		inline = 1
@@ -44,8 +51,7 @@ func (e Encoder) Encode(img []byte) {
 	}
 
 	fmt.Fprintf(e.W,
-		"\x1b]1337;File=name=%s;width=%s;height=%s;preserveAspectRatio=%d;inline=%d;align=%s;type=%s:%s\a\n",
-		base64.StdEncoding.EncodeToString(e.Name),
+		";width=%s;height=%s;preserveAspectRatio=%d;inline=%d;align=%s;type=%s:%s\a\n",
 		e.Width, e.Height, preserveAspectRatio, inline, e.Align, e.Type,
 		base64.StdEncoding.EncodeToString(img))
 }
