@@ -20,8 +20,8 @@ func main() {
 	e := osc1337.NewEncoder()
 	e.W = &buf
 	e.Name = []byte(fname)
-	e.Inline = true
 	e.Width = "50%"
+	e.Inline = true
 	e.Type = "image/png"
 
 	e.Encode(body)
