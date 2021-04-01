@@ -6,5 +6,5 @@ A sample to display media and transfer file from hterm using OSC 1337 command, w
 ```
 $ make
 $ ./out
-<print the image>
+<The image will be displayed>
 ```
